@@ -8,10 +8,10 @@ this information is needed in the next step when loading the datasets to the tab
 
 To download all files, open a Windows PowerShell command console and run the following commands:
 
-<code></code><code>PowerShell
+<pre><code>
 $source = ‘https://github.com/farhad-ghassemi/CustomerChurnSQLwithR/master/Download_ChurnCustomerFiles.ps1’
 $ps1_dest = “$pwd\Download_ChurnCustomerFiles.ps1.ps1”
 $wc = New-Object System.Net.WebClient
 $wc.DownloadFile($source, $ps1_dest)
 .\Download_SQL_Scripts.ps1 –DestDir ‘C:\ChurnCustomerSQLwithR’
-</code><code></code>
+</code></pre>
