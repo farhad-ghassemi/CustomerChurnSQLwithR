@@ -3,7 +3,7 @@ This repository provides the files to set up and run a customer churn machine le
 SQL server R services follows the detailed provided in the [Azure ML template for customer churn](http://gallery.cortanaanalytics.com/Collection/Retail-Customer-Churn-Prediction-Template-1?share=1).  
 
 #### Step 1: Download sample datasets and SQL script files on a local machine with access to the SQL server.
-All files related to this walkthrough (including the sample datasets) are stored in a git repository. To download these files, click on **Download Zip** or clone the repository `git clone https://github.com/farhad-ghassemi/CustomerChurnSQLwithR</code>`.
+All files related to this walkthrough (including the sample datasets) are stored in a git repository. To download these files, click on **Download Zip** or clone the repository by running `git clone https://github.com/farhad-ghassemi/CustomerChurnSQLwithR`.
 
 #### Step 2: Upload sample datasets into the SQL server and create a database and tables.
 The user needs to copy the datasets (`transactions.csv` and `profiles.csv`) into a local directory on the SQL server, note the path where the files are uploaded to and run the following PowerShell script.
