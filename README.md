@@ -20,6 +20,6 @@ from the SQL Server Management Studio on a local machine that has access to the 
 
 |            File Name         |          Function             |
 |------------------------------|-------------------------------|
-| `generateFeaturesAndTag.sql` | Generates features and tags   |
+| `generateFeaturesAndTag.sql` | Generate features and tags    |
 | `trainModel.sql`             | Train the model               |
 | `predictChurn.sql`           | Predict the customer behavior |
