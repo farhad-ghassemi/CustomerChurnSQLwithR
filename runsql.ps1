@@ -92,9 +92,9 @@ function ExecuteSQLFile($sqlfile,$go_or_not)
             if($SQLString -ne "go") 
             { 
                 #Preparation of SQL packet 
-                if($SQLString -match "SET @path_to_data")
+                if($SQLString -match "SET @path_to_data1")
                 {
-                    $SQLPacket += "SET @path_to_data = '" + $csvfilepath + "'`n"
+                    $SQLPacket += "SET @path_to_data1 = '" + $csvfilepath + "'`n"
                 }
                 Elseif($SQLString.ToLower() -match "set @db_name")
                 {
@@ -171,14 +171,14 @@ function ExecuteSQLFile($sqlfile,$go_or_not)
 
 Write-Host "Start creating database and table on your SQL Server, and uploading data to the table. It may take a while..."
 $start_time = Get-Date
-ExecuteSQLFile $PWD"\create-db-tb-upload-data-sql-walkthrough.sql" 1
+ExecuteSQLFile $PWD"\create-db-tb-upload-data-sql.sql" 1
 $end_time = Get-Date
 $time_span = $end_time - $start_time
 $total_seconds = [math]::Round($time_span.TotalSeconds,2)
 Write-Host "This step (creating database, tables and uploading data to table) takes $total_seconds seconds."
 Write-Host "Start running the .sql files to register all functions and stored procedures used in this walkthrough..."
 $start_time = Get-Date
-ExecuteSQLFile $PWD"\fnCalculateDistance.sql" 1
+ExecuteSQLFile $PWD"\fnCalculateDistance.sql" 0
 ExecuteSQLFile $PWD"\fnEngineerFeatures.sql" 1
 ExecuteSQLFile $PWD"\TrainTipPredictionModel.sql" 1
 ExecuteSQLFile $PWD"\PlotHistogram.sql" 1
