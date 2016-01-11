@@ -30,6 +30,6 @@ the open source R functions whereas `CustomerChurnTemplateRx.sql` employs the Re
 
 |            Procedure          |          Purpose             |
 |------------------------------|-------------------------------|
-| `CreateFeaturesAndTag.sql` | Generate features and tags    |
+| `CreateFeaturesTag.sql` | Generate features and tags    |
 | `TrainModelR.sql` or `TrainModelRx.sql`              | Train the model               |
 | `PredictChurnR.sql` or `PredictChurnRx.sql`          | Predict the customer behavior |
