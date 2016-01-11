@@ -9,7 +9,7 @@ However, the users should be easily able to modify the schema to their own need 
 #### Step 1: Downloading Files 
 All files related to this walkthrough (including the sample datasets) are stored in this git repository. To download these files on a local machine with access to the SQL server (or directly on the SQL server), click on **Download ZIP** or clone the repository by running `git clone https://github.com/farhad-ghassemi/CustomerChurnSQLwithR`.
 
-#### Step 2: Create a database and tables
+#### Step 2: Create the Database and Tables
 The user needs to upload the datasets (`Transactions.csv` and `Profiles.csv`) into a local directory on the SQL server. Once these files are uploaded to the dataset, the user must run `CreateDBUploadTables.sql` from a SQL Server Management Studio (SSMS). 
 This script assumes that the two files are stored at this location: `C:\ChurnData`. If the location is different, the user can modify the script before execution. Additionally, the values of the churn period and churn threshold are
 defined in this sql script. After locating the following lines in the file, the user can change the values of these parameters:

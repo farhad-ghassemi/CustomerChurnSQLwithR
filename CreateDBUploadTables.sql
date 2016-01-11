@@ -1,14 +1,25 @@
-DECLARE @db_name varchar(255), @tb_name1 varchar(255), @path_to_data1 varchar(255), @tb_name2 varchar(255), @path_to_data2 varchar(255)
-DECLARE @create_db_template varchar(max), @create_tb_template1 varchar(max), @create_tb_template2 varchar(max), @create_tb_template3 varchar(max), @create_tb_template4 varchar(max), , @create_tb_template5 varchar(max), @upload_data_template1 varchar(max), @upload_data_template2 varchar(max)
+/* 
+	Description: This file creates the database and templates for the customer churn template.
+	             The user can modify the variables in the set statements if needed. 
+	Author: farhad.ghassemi@microsoft.com
+	Date: Jan 2016
+*/
+DECLARE @db_name varchar(255), @tb_name1 varchar(255), @path_to_data1 varchar(255), @tb_name2 varchar(255), @path_to_data2 varchar(255), @tb_name3 varchar(255), @tb_name4 varchar(255), @tb_name5 varchar(255)
+DECLARE @create_db_template varchar(max), @create_tb_template1 varchar(max), @create_tb_template2 varchar(max), @create_tb_template3 varchar(max), @create_tb_template4 varchar(max), @create_tb_template5 varchar(max), @upload_data_template1 varchar(max), @upload_data_template2 varchar(max)
 DECLARE @sql_script varchar(max)
 DECLARE @ChurnPeriodVal int, @ChurnThresholdVal int
+/* User defined variables */
 SET @db_name = 'Churn'
 SET @tb_name1 = 'Profiles' 
 SET @path_to_data1= 'C:\ChurnData\Profiles.csv' --Please change the path to the data file based on where it is in your SQL Server
 SET @tb_name2 = 'Transactions'
+SET @tb_name3 = 'ChurnModelR'
+SET @tb_name4 = 'ChurnModelRx'
+SET @tb_name5 = 'ChurnVars'
 SET @ChurnPeriodVal = 21
 SET @ChurnThresholdVal = 0
 SET @path_to_data2= 'C:\ChurnData\Transactions.csv' --Please change the path to the data file based on where it is in your SQL Server
+/* User defined variables */
 SET @create_db_template = 'create database {db_name}'
 SET @create_tb_template1 = '
 use {db_name}
@@ -40,7 +51,7 @@ CREATE TABLE {tb_name}
 
 SET @create_tb_template3 = '
 use {db_name}
-CREATE TABLE ChurnModel2
+CREATE TABLE {tb_name}
 (
 	model varbinary(max) not null
 )
@@ -48,7 +59,7 @@ CREATE TABLE ChurnModel2
 
 SET @create_tb_template4 = '
 use {db_name}
-CREATE TABLE ChurnModelNoRx2
+CREATE TABLE {tb_name}
 (
 	model varbinary(max) not null
 )
@@ -92,19 +103,21 @@ EXECUTE(@sql_script)
 -- Create table 2
 SET @sql_script = REPLACE(@create_tb_template2, '{db_name}', @db_name)
 SET @sql_script = REPLACE(@sql_script, '{tb_name}', @tb_name2)
-EXECUTE(@sql_script)
+--EXECUTE(@sql_script)
 
 -- Upload data from a local file on the server to the table 2
 SET @sql_script = REPLACE(@upload_data_template2, '{db_name}', @db_name)
 SET @sql_script = REPLACE(@sql_script, '{tb_name}', @tb_name2)
 SET @sql_script = REPLACE(@sql_script, '{path_to_data}', @path_to_data2)
-EXECUTE(@sql_script)
+--EXECUTE(@sql_script)
 
 -- Create the table to persist the trained models
 SET @sql_script = REPLACE(@create_tb_template3, '{db_name}', @db_name)
+SET @sql_script = REPLACE(@sql_script, '{tb_name}', @tb_name3)
 EXECUTE(@sql_script)
 
 SET @sql_script = REPLACE(@create_tb_template4, '{db_name}', @db_name)
+SET @sql_script = REPLACE(@sql_script, '{tb_name}', @tb_name4)
 EXECUTE(@sql_script)
 
 -- Create table 5
