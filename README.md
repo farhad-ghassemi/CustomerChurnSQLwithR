@@ -13,7 +13,6 @@ All files related to this walkthrough (including the sample datasets) are stored
 The user needs to upload the datasets (`Transactions.csv` and `Profiles.csv`) into a local directory on the SQL server. Once these files are uploaded to the SQL server, the user must run `CreateDBUploadTables.sql` from a SQL Server Management Studio (SSMS) with access to the server. 
 The first few lines of this script introduces user-defined variables (These lines are marked by comments in the file). The important variables to pay attention to include: 1) The name of the database, 2) The location of the files on the server and 3) The name of tables to be created. 
 The user can also define here the values of the churn period and churn threshold.
-```
 
 If the user uses the default values, after running the scrip, a database called `Churn` is generated with the following tables:
   
