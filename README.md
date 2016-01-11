@@ -21,7 +21,7 @@ If the user uses the default values, after running the scrip, a database called 
 | `Transactions` | Customer trasnsactions   |
 | `Profiles`             | Customer profiles               |
 | `ChurnVars`           | Churn period and threshold parameters|
-| `ChurnModelR`           | Churn model trained using Open Source R|
+| `ChurnModelR`           | Churn model trained using open source R|
 | `ChurnModelRx`           | Churn model trained using Revolution R|
 
 #### Step 3: Feature and Tags Generation, Model Training and Prediction (Open-Source R and Revolution R)
@@ -30,6 +30,6 @@ the open source R functions whereas `CustomerChurnTemplateRx.sql` employs the Re
 
 |            Procedure          |          Purpose             |
 |------------------------------|-------------------------------|
-| `generateFeaturesAndTag.sql` | Generate features and tags    |
+| `CreateFeaturesAndTag.sql` | Generate features and tags    |
 | `TrainModelR.sql` or `TrainModelRx.sql`              | Train the model               |
 | `PredictChurnR.sql` or `PredictChurnRx.sql`          | Predict the customer behavior |
