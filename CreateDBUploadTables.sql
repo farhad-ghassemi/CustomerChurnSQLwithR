@@ -103,13 +103,13 @@ EXECUTE(@sql_script)
 -- Create table 2
 SET @sql_script = REPLACE(@create_tb_template2, '{db_name}', @db_name)
 SET @sql_script = REPLACE(@sql_script, '{tb_name}', @tb_name2)
---EXECUTE(@sql_script)
+EXECUTE(@sql_script)
 
 -- Upload data from a local file on the server to the table 2
 SET @sql_script = REPLACE(@upload_data_template2, '{db_name}', @db_name)
 SET @sql_script = REPLACE(@sql_script, '{tb_name}', @tb_name2)
 SET @sql_script = REPLACE(@sql_script, '{path_to_data}', @path_to_data2)
---EXECUTE(@sql_script)
+EXECUTE(@sql_script)
 
 -- Create the table to persist the trained models
 SET @sql_script = REPLACE(@create_tb_template3, '{db_name}', @db_name)
