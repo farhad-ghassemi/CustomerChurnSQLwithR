@@ -1,4 +1,4 @@
-# Customer Churn Template on a Microsoft SQL Server R Services
+# Customer Churn Template on Microsoft SQL Server R Services
 ### Introduction:
 Predicting customer churn is an important problem for many industries. This repository provides the files to set up and run a customer churn machine learning template on a [Microsoft SQL Server R Services](https://msdn.microsoft.com/en-us/library/mt604845.aspx). 
 
