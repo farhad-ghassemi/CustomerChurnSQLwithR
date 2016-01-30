@@ -6,7 +6,7 @@
 
 
 use [Churn]
-Go
+go
 
 set ansi_nulls on
 go
@@ -21,6 +21,15 @@ go
 execute CreateFeaturesTag
 execute TrainModelR
 
+/*
+CREATE TABLE {Predictions}
+(
+       UserId bigint,
+	   Tag varchar(50),
+	   Score real
+)
+*/
+ 
 declare @query_string nvarchar(max)
 set @query_string='
 select a.* from FeaturesTag a
@@ -33,4 +42,3 @@ on a.UserId=b.UserId
 where b.UserId is null 
 '
 execute PredictChurnR @inquery = @query_string;
-

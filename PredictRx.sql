@@ -13,7 +13,7 @@ set quoted_identifier on
 go
 
 if EXISTS (select * from sys.objects where type = 'P' AND name = 'PredictChurnRx')
-  drop procedure TrainModelR
+  drop procedure PredictChurnRx
 go
 
 
@@ -23,19 +23,22 @@ begin
   declare @modelt varbinary(max) = (select top 1 model from ChurnModelRx);
   exec sp_execute_external_script @language = N'R',
                                   @script = N'
+library(ROCR)
 mod <- unserialize(as.raw(model));
 print(summary(mod))
 Scores<-rxPredict(modelObject = mod, data = InputDataSet, outData = NULL, 
           predVarNames = "Score", type = "response", writeModelVars = FALSE, overwrite = TRUE);
 OutputDataSet <- data.frame(InputDataSet$UserId,InputDataSet$Tag,Scores)
-str(OutputDataSet)
-print(OutputDataSet)
-
+predictROC <- prediction(Scores,InputDataSet$Tag)
+performanceROC <- performance(predictROC,"tpr","fpr")
+auc = as.numeric(performance(predictROC,"auc")@y.values)
+OutputDataSet$Auc  =  rep(auc,nrow(InputDataSet))
 ',
                                   @input_data_1 = @inquery,
                                   @params = N'@model varbinary(max)',
                                   @model = @modelt
   with RESULT sets ((UserId bigint,
                      Tag varchar(10),    
-                     Score float));
+                     Score float,
+					 Auc float));
 end
