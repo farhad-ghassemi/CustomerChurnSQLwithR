@@ -24,8 +24,6 @@ If the user uses the default values, after running the scrip, a database called 
 | `ChurnModelR`           | Churn model trained using open-source R|
 | `ChurnModelRx`           | Churn model trained using Microsoft R Server|
 
-For more information on Microsoft R Server, go to this .
-
 #### Step 3: Feature and Tags Generation, Model Training and Prediction (Open-Source R and Microsoft R Server)
 Once the database and tabels are created, the user can run `CustomerChurnTemplateR.sql` or `CustomerChurnTemplateRx.sql` to create features and tags from the `Profiles` and `Transactions` tables and to train a model and make predictions. `CustomerChurnTemplateR.sql` relies on
 the open-source R functions whereas `CustomerChurnTemplateRx.sql` employs the [Microsoft R Server (formerly known as Revolution R)](https://www.microsoft.com/en-us/server-cloud/products/r-server/) functions. Each of these scripts call the following procedures to accomplish their tasks:  
