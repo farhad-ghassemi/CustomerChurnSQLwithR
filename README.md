@@ -1,6 +1,6 @@
-# Customer Churn Template on a Microsoft R Server
+# Customer Churn Template on a Microsoft SQL Server R Services
 ### Introduction:
-Predicting customer churn is an important problem for many industries. This repository provides the files to set up and run a customer churn machine learning template on a [Microsoft R Server](https://msdn.microsoft.com/en-us/library/mt604845.aspx). 
+Predicting customer churn is an important problem for many industries. This repository provides the files to set up and run a customer churn machine learning template on a [Microsoft SQL Server R Services](https://msdn.microsoft.com/en-us/library/mt604845.aspx). 
 
 The template discussed here closely follows the [Azure ML template for customer churn](http://gallery.cortanaanalytics.com/Collection/Retail-Customer-Churn-Prediction-Template-1?share=1). The template takes two datasets as input: a customer profile dataset and a transaction dataset. The schema for these datasets in the current implementation can be found [here](http://gallery.cortanaanalytics.com/Experiment/Retail-Churn-Template-Step-1-of-4-tagging-data-1).
 However, the users should be easily able to modify the schema to their own need as what has provided here is only an example. The template also allows the users to define the churn period and the threshold in the number of transactions to identify churners. 
@@ -9,7 +9,7 @@ However, the users should be easily able to modify the schema to their own need 
 #### Step 1: Downloading Files 
 All files related to this walkthrough (including the sample datasets) are stored in this git repository. To download these files on a local machine with access to the SQL server (or directly on the SQL server), click on **Download ZIP** or clone the repository by running `git clone https://github.com/farhad-ghassemi/CustomerChurnSQLwithR`.
 
-#### Step 2: Creating the Database and Tables
+#### Step 2: Creating Database and Tables
 The user needs to upload the datasets (`Transactions.csv` and `Profiles.csv`) into a local directory on the SQL server. Once these files are uploaded to the SQL server, the user must run `CreateDBUploadTables.sql` from a SQL Server Management Studio (SSMS) with access to the server. 
 The first few lines of this script introduces user-defined variables (These lines are marked by comments in the file). The important variables to pay attention to include: 1) The name of the database, 2) The location of the files on the server and 3) The name of tables to be created. 
 The user can also define here the values of the churn period and churn threshold.
@@ -21,8 +21,8 @@ If the user uses the default values, after running the scrip, a database called 
 | `Transactions` | Customer trasnsactions   |
 | `Profiles`             | Customer profiles               |
 | `ChurnVars`           | Churn period and threshold parameters|
-| `ChurnModelR`           | Churn model trained using open source R|
-| `ChurnModelRx`           | Churn model trained using Revolution R|
+| `ChurnModelR`           | Churn model trained using open-source R|
+| `ChurnModelRx`           | Churn model trained using Microsoft R Server (formerly known as Revolution R)|
 
 #### Step 3: Feature and Tags Generation, Model Training and Prediction (Open-Source R and Revolution R)
 Once the database and tabels are created, the user can run `CustomerChurnTemplateR.sql` or `CustomerChurnTemplateRx.sql` to create features and tags from the `Profiles` and `Transactions` tables and to train a model and make predictions. `CustomerChurnTemplateR.sql` relies on
