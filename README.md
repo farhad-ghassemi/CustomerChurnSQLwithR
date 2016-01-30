@@ -36,6 +36,7 @@ the open source R functions whereas `CustomerChurnTemplateRx.sql` employs the Re
 
 ### Output:
 The template generates a table with the following columns for a group of customers who are randomly selected and used as the test data set:
+
 |            Column          |          Description            |
 |------------------------------|-------------------------------|
 | `UserId` | Customer Id    |
