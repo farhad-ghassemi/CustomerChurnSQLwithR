@@ -35,7 +35,7 @@ the open-source R functions whereas `CustomerChurnTemplateRx.sql` employs the [M
 | `PredictChurnR.sql` or `PredictChurnRx.sql`          | Predict the customer behavior |
 
 ### Output:
-The template generates a table with the following columns for a group of customers who are randomly selected and used as the test data set:
+The template generates a table with the following columns for a group of customers who are randomly selected and used as the test dataset:
 
 |            Column          |          Description            |
 |------------------------------|-------------------------------|
