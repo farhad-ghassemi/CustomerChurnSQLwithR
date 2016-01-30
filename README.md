@@ -40,6 +40,6 @@ The template generates a table with the following columns for a group of custome
 |            Column          |          Description            |
 |------------------------------|-------------------------------|
 | `UserId` | Customer Id    |
-| `Tag`              | True customer status (Churner or non-churner)               |
+| `Tag`              | True customer status (churner or non-churner)               |
 | `Score`          | Model score |
-| `Auc`          | Model Auc on test dataset |
+| `Auc`          | Model auc on test dataset |
