@@ -24,7 +24,9 @@ If the user uses the default values, after running the scrip, a database called 
 | `ChurnModelR`           | Churn model trained using open-source R|
 | `ChurnModelRx`           | Churn model trained using Microsoft R Server (formerly known as Revolution R)|
 
-#### Step 3: Feature and Tags Generation, Model Training and Prediction (Open-Source R and Revolution R)
+For more information on Microsoft R Server, go to this [link](https://www.microsoft.com/en-us/server-cloud/products/r-server/).
+
+#### Step 3: Feature and Tags Generation, Model Training and Prediction (Open-Source R and Microsoft R Server)
 Once the database and tabels are created, the user can run `CustomerChurnTemplateR.sql` or `CustomerChurnTemplateRx.sql` to create features and tags from the `Profiles` and `Transactions` tables and to train a model and make predictions. `CustomerChurnTemplateR.sql` relies on
 the open source R functions whereas `CustomerChurnTemplateRx.sql` employs the Revolution R commands. Each of these scripts call the following procedures to accomplish their tasks:  
 
@@ -42,4 +44,4 @@ The template generates a table with the following columns for a group of custome
 | `UserId` | Customer Id    |
 | `Tag`              | True customer status (churner or non-churner)               |
 | `Score`          | Model score |
-| `Auc`          | Model auc on test dataset |
+| `Auc`          | Model auc on test dataset (identical for all columns) |
