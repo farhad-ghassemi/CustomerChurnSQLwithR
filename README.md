@@ -1,6 +1,6 @@
-# Customer Churn Template on a SQL Server R Services
+# Customer Churn Template on a Microsoft R Server
 ### Introduction:
-Predicting customer churn is an important problem for many industries. This repository provides the files to set up and run a customer churn machine learning template on a [SQL Server R services](https://msdn.microsoft.com/en-us/library/mt604845.aspx). 
+Predicting customer churn is an important problem for many industries. This repository provides the files to set up and run a customer churn machine learning template on a [Microsoft R Server](https://msdn.microsoft.com/en-us/library/mt604845.aspx). 
 
 The template discussed here closely follows the [Azure ML template for customer churn](http://gallery.cortanaanalytics.com/Collection/Retail-Customer-Churn-Prediction-Template-1?share=1). The template takes two datasets as input: a customer profile dataset and a transaction dataset. The schema for these datasets in the current implementation can be found [here](http://gallery.cortanaanalytics.com/Experiment/Retail-Churn-Template-Step-1-of-4-tagging-data-1).
 However, the users should be easily able to modify the schema to their own need as what has provided here is only an example. The template also allows the users to define the churn period and the threshold in the number of transactions to identify churners. 
@@ -33,3 +33,12 @@ the open source R functions whereas `CustomerChurnTemplateRx.sql` employs the Re
 | `CreateFeaturesTag.sql` | Generate features and tags    |
 | `TrainModelR.sql` or `TrainModelRx.sql`              | Train the model               |
 | `PredictChurnR.sql` or `PredictChurnRx.sql`          | Predict the customer behavior |
+
+### Output:
+The template generates a table with the following columns for a group of customers who are randomly selected and used as the test data set:
+|            Column          |          Description            |
+|------------------------------|-------------------------------|
+| `UserId` | Customer Id    |
+| `Tag`              | True customer status (Churner or non-churner)               |
+| `Score`          | Model score |
+| `Auc`          | Model Auc on test dataset |

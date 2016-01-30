@@ -20,15 +20,6 @@ go
 
 execute CreateFeaturesTag
 execute TrainModelR
-
-/*
-CREATE TABLE {Predictions}
-(
-       UserId bigint,
-	   Tag varchar(50),
-	   Score real
-)
-*/
  
 declare @query_string nvarchar(max)
 set @query_string='
