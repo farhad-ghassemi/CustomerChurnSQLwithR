@@ -16,18 +16,11 @@ $users_local_fname = $local_file_path + "Users.csv"
 # Make a connection to the server.
 ##########################################################################
 $server = Read-Host -prompt 'Server name'
-#$server = "10.145.22.126"
 $dbname = if(($result = Read-Host "Database name [Press enter to accept the default name of ChurnMSRTemplate]") -eq ''){"ChurnMSRTemplate"}else{$result}
+$SQLPacket = "use [" + $dbname + "]`n"
 $defaultdbname = "ChurnMSRTemplate"
 $files = $local_file_path + "*.sql"
 $listfiles = Get-ChildItem $files
-#if ($defaultdbname -ne $dbname)
-#{
-#    foreach ($file in $listfiles)
-#    {
-#        (Get-Content $file).replace($defaultdbname, $dbname) | Set-Content $file
-#    }
-#}
 
 $u = Read-Host -prompt 'Username'
 $p0 = Read-Host -prompt 'Password' -AsSecureString
@@ -75,7 +68,23 @@ function ExecuteSQLFile($sqlfile,$go_or_not)
                 }
                 Elseif($SQLString -match "SET @db_name")
                 {
-                    $SQLPacket += "SET @db_name = " + $dbname + "`n"
+                    $SQLPacket += "SET @db_name = '" + $dbname + "'`n"
+                }
+                Elseif($SQLString -match "create database db_name")
+                {
+                    $SQLPacket += "create database " + $dbname + "`n"
+                }
+                Elseif($SQLString -like "use*")
+                {
+                    $SQLPacket = "use [" + $dbname + "]`n"
+                }
+                Elseif($SQLString -like "USE*")
+                {
+                    $SQLPacket = "USE [" + $dbname + "]`n"
+                }
+                Elseif($SQLString -like "insert into ChurnVars *")
+                {
+                    $SQLPacket += "insert into ChurnVars (ChurnPeriod,ChurnThreshold) values (" + $churn_period + "," + $churn_threshold + ")`n"
                 }
                 Else
                 {
@@ -148,8 +157,10 @@ if ($ans -eq 'E' -or $ans -eq 'e')
 } 
 if ($ans -eq 'y' -or $ans -eq 'Y')
 {
-	$activities_url = if(($result = Read-Host "URL for the activities file [Press enter to accept the default value") -eq ''){"http://azuremlsamples.azureml.net/templatedata/RetailChurn_ActivityInfoData.csv"}else{$result}
-	$users_url = if(($result = Read-Host "URL for the users file [Press enter to accept the default value") -eq ''){"http://azuremlsamples.azureml.net/templatedata/RetailChurn_UserInfoData.csv"}else{$result}
+	$activities_url = if(($result = Read-Host "URL for the activities file [Press enter to accept the default value]") -eq ''){"http://azuremlsamples.azureml.net/templatedata/RetailChurn_ActivityInfoData.csv"}else{$result}
+	$users_url = if(($result = Read-Host "URL for the users file [Press enter to accept the default value]") -eq ''){"http://azuremlsamples.azureml.net/templatedata/RetailChurn_UserInfoData.csv"}else{$result}
+	$churn_period = if(($result = Read-Host "Churn period (number of days at the end of the activities dataset based on which churners are identified) [Press enter to accept the default value of 21]") -eq ''){"21"}else{$result}
+	$churn_threshold = if(($result = Read-Host "Churn threshold (minimum number of activities required in order not to be identified as a churner) [Press enter to accept the default value of 0]") -eq ''){"0"}else{$result}
 
 	Invoke-WebRequest -Uri $activities_url -OutFile $activities_local_fname 	
 	Invoke-WebRequest -Uri $users_url -OutFile $users_local_fname 	

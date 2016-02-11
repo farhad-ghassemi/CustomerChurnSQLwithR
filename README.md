@@ -1,9 +1,47 @@
 # Customer Churn Template on Microsoft SQL Server R Services
-### Introduction:
-Predicting customer churn is an important problem for many industries. This repository provides the files to set up and run a customer churn machine learning template on a [Microsoft SQL Server R Services](https://msdn.microsoft.com/en-us/library/mt604845.aspx). 
 
-The template discussed here closely follows the [Azure ML template for customer churn](http://gallery.cortanaanalytics.com/Collection/Retail-Customer-Churn-Prediction-Template-1?share=1). The template takes two datasets as input: a customer profile dataset and a transaction dataset. The schema for these datasets in the current implementation can be found [here](http://gallery.cortanaanalytics.com/Experiment/Retail-Churn-Template-Step-1-of-4-tagging-data-1).
-However, the users should be easily able to modify the schema to their own need as what has provided here is only an example. The template also allows the users to define the churn period and the threshold in the number of transactions to identify churners. 
+INTRODUCTION
+------------
+
+This template demonstrates how to build and deploy a customer churn model using a [Microsoft SQL Server R Services](https://msdn.microsoft.com/en-us/library/mt604845.aspx). 
+
+ * For a full description of the template in Cortana Analytics Suite, visit the [project page](http://gallery.cortanaanalytics.com/Collection/Retail-Customer-Churn-Prediction-Template-1).
+
+ * To check the source code, modify or track changes, please visit this [github link](https://github.com/Azure/Azure-MachineLearning-DataScience-Private/tree/master/Misc/SQL_RRE_Templates/Churn).
+
+
+REQUIREMENTS
+------------
+
+To run the scripts, it requires the following:
+
+ * Microsoft SQL Server R Services installed and configured. Visit [this link](https://msdn.microsoft.com/en-us/library/mt604885.aspx) to configure a server. 
+ * A user name and password or Windows Authnetication capability to access the server.
+ * Data on user information as well as their activities/interactions with the vendor. In this template, we provide sample datasets and how to load them to the server.
+ 
+WORKFLOW AUTOMATION
+-------------------
+
+The end-to-end workflow is automated with a Windows PowerShell script. The script can be invoked remotely from the PowerShell console by running the following command:
+
+	MSR-SQL-Churn.ps1
+
+The PowerShell script invokes a number of SQL scripts through the steps described below. Each step can be also skipped if not needed. The PowerShell script is mainly provided as a convenient way for the user to deploy the template.   
+An experienced user may directly run, modifiy or intergrate the provided SQL scripts in their your system.    
+
+   
+STEP 1: DATA PREPARATION
+------------------------
+
+The template requires two datasets as input: a dataset of the user profiles and a dataset of the user activities. As part of this repository, we have provided two sample datasets. The schema for these datasets can be found [here](http://gallery.cortanaanalytics.com/Experiment/Retail-Churn-Template-Step-1-of-4-tagging-data-1).
+Furthermore, the files can be downloaded from this [link](http://azuremlsamples.azureml.net/templatedata/RetailChurn_ActivityInfoData.csv) and this [link](http://azuremlsamples.azureml.net/templatedata/RetailChurn_UserInfoData.csv).
+
+Once the PowerShell script is invoked, the user must first enter a server name (or its IP address) and a database name. If the user presses enter for the database name, a default name is used. Then, the user must enter the user name and password. 
+If the user does not provide a user name or password, a connection based on the Windows account information is established.     
+
+The user then must enter 
+The template also allows the users to define the churn period and the threshold in the number of transactions to identify churners. 
+
 
 ### Steps to Set up and Run Customer Churn Template:
 #### Step 1: Downloading Files 
