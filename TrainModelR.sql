@@ -1,9 +1,8 @@
 /* 
 	Description: This file creates the procedure to train an open source R model for the customer churn template.
 	Author: farhad.ghassemi@microsoft.com
-	Date: Jan 2016
 */
-use [Churn]
+use [ChurnMSRTemplate]
 go
 
 set ansi_nulls on
@@ -12,7 +11,7 @@ go
 set quoted_identifier on
 go
 
-if EXISTS (select * from sys.objects where type = 'P' AND name = 'TrainModelR')
+if exists (select * from sys.objects where type = 'P' and name = 'TrainModelR')
   drop procedure TrainModelR
 go
 
@@ -25,10 +24,11 @@ begin
 	AvgTimeDelta, Recency,
 	UniqueTransactionId, UniqueItemId, UniqueLocation, UniqueProductCategory,
 	TotalQuantityperUniqueTransactionId, TotalQuantityperUniqueItemId, TotalQuantityperUniqueLocation, TotalQuantityperUniqueProductCategory, 
-	TotalValueperUniqueTransactionId, TotalValueperUniqueItemId, TotalValueperUniqueLocation, TotalValueperUniqueProductCategory, 
+	TotalValueperUniqueTransactionId, TotalValueperUniqueItemId, TotalValueperUniqueLocation, TotalValueperUniqueProductCategory,
 	Tag
-    from FeaturesTag
+    from Features
     tablesample (70 percent) repeatable (98052)
+	join Tags on Features.UserId=Tags.UserId
 '
   -- Insert the trained model into a database table
   insert into ChurnModelR
@@ -43,9 +43,11 @@ logitObj <- glm(Tag ~ ., family = binomial, data = InputDataSet)
 summary(logitObj)
 
 ## Serialize model and put it in data frame
-trained_model <- data.frame(model=as.raw(serialize(logitObj, NULL)));
-',
-                                  @input_data_1 = @inquery,
-                                  @output_data_1_name = N'trained_model'
-  ;
+trained_model <- data.frame(model=as.raw(serialize(logitObj, connection=NULL)));'
+,@input_data_1 = @inquery
+,@output_data_1_name = N'trained_model';
 end
+go
+
+execute TrainModelR
+go

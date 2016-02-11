@@ -1,9 +1,8 @@
 /* 
-	Description: This file creates the procedure to train an Revolution R model for the customer churn template.
+	Description: This file creates the procedure to train a Microsoft R model for the customer churn template.
 	Author: farhad.ghassemi@microsoft.com
-	Date: Jan 2016
 */
-use [Churn]
+use [ChurnFinal]
 go
 
 set ansi_nulls on
@@ -12,11 +11,11 @@ go
 set quoted_identifier on
 go
 
-if EXISTS (select * from sys.objects where type = 'P' AND name = 'TrainModelRx')
+if exists (select * from sys.objects where type = 'P' and name = 'TrainModelRx')
   drop procedure TrainModelRx
 go
 
-create procedure TrainModelRx
+create procedure [dbo].[TrainModelRx]
 as
 begin
   declare @inquery nvarchar(max) = N'
@@ -25,10 +24,11 @@ begin
 	AvgTimeDelta, Recency,
 	UniqueTransactionId, UniqueItemId, UniqueLocation, UniqueProductCategory,
 	TotalQuantityperUniqueTransactionId, TotalQuantityperUniqueItemId, TotalQuantityperUniqueLocation, TotalQuantityperUniqueProductCategory, 
-	TotalValueperUniqueTransactionId, TotalValueperUniqueItemId, TotalValueperUniqueLocation, TotalValueperUniqueProductCategory, 
+	TotalValueperUniqueTransactionId, TotalValueperUniqueItemId, TotalValueperUniqueLocation, TotalValueperUniqueProductCategory,
 	Tag
-    from FeaturesTag
+    from Features
     tablesample (70 percent) repeatable (98052)
+	join Tags on Features.UserId=Tags.UserId
 '
   -- Insert the trained model into a database table
   insert into ChurnModelRx
@@ -38,18 +38,20 @@ begin
 ## Create model
 InputDataSet$Tag <- factor(InputDataSet$Tag)
 InputDataSet$Age <- factor(InputDataSet$Age)
+Vars <- rxGetVarNames(InputDataSet)
+Vars <- Vars[!Vars  %in% c("Tag")]
+formula <- as.formula(paste("Tag~", paste(Vars, collapse = "+")))
 InputDataSet$Address <- factor(InputDataSet$Address)
-logitObj <- rxLogit(Tag ~ Age+Address+TotalQuantity+TotalValue+StDevQuantity+StDevValue+AvgTimeDelta+Recency+
-	                        UniqueTransactionId+UniqueItemId+UniqueLocation+UniqueProductCategory+
-							TotalQuantityperUniqueTransactionId+TotalQuantityperUniqueItemId+TotalQuantityperUniqueLocation+TotalQuantityperUniqueProductCategory+ 
-							TotalValueperUniqueTransactionId+TotalValueperUniqueItemId+TotalValueperUniqueLocation+TotalValueperUniqueProductCategory, data = InputDataSet)
+logitObj <- rxLogit(formula = formula, data = InputDataSet)
 summary(logitObj)
 
 ## Serialize model and put it in data frame
-trained_model <- data.frame(model=as.raw(serialize(logitObj, NULL)));
-',
-                                  @input_data_1 = @inquery,
-                                  @output_data_1_name = N'trained_model'
-  ;
+trained_model <- data.frame(model=as.raw(serialize(logitObj, connection=NULL)));'
+,@input_data_1 = @inquery
+,@output_data_1_name = N'trained_model';
 end
+go
+
+execute TrainModelRx
+go
 
