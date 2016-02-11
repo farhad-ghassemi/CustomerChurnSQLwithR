@@ -1,4 +1,8 @@
-use [ChurnFinal]
+/* 
+	Description: This file creates the features for the customer churn template.
+	Author: farhad.ghassemi@microsoft.com
+*/
+use [ChurnMSRTemplate]
 go
 
 set ansi_nulls on

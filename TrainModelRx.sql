@@ -2,7 +2,7 @@
 	Description: This file creates the procedure to train a Microsoft R model for the customer churn template.
 	Author: farhad.ghassemi@microsoft.com
 */
-use [ChurnFinal]
+use [ChurnMSRTemplate]
 go
 
 set ansi_nulls on

@@ -9,7 +9,7 @@ DECLARE @sql_script varchar(max)
 DECLARE @ChurnPeriodVal int, @ChurnThresholdVal int
 
 /* Internal Variables */
-SET @db_name = 'Churn'
+SET @db_name = 'ChurnMSRTemplate'
 SET @tb_name1 = 'Users' 
 SET @tb_name2 = 'Activities'
 SET @tb_name3 = 'ChurnModelR'

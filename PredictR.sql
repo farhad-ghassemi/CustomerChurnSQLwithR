@@ -2,7 +2,7 @@
 	Description: This file creates the procedure to predict churn outcome based on the open source R model previously built.
 	Author: farhad.ghassemi@microsoft.com
 */
-use [ChurnFinal]
+use [ChurnMSRTemplate]
 go
 
 set ansi_nulls on
