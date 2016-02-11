@@ -17,7 +17,7 @@ $users_local_fname = $local_file_path + "Users.csv"
 ##########################################################################
 $server = Read-Host -prompt 'Server name'
 #$server = "10.145.22.126"
-$dbname = Read-Host -prompt 'Database name [Default:ChurnMSRTemplate]'
+$dbname = if(($result = Read-Host "Database name [Press enter to accept the default name of ChurnMSRTemplate]") -eq ''){"ChurnMSRTemplate"}else{$result}
 $defaultdbname = "ChurnMSRTemplate"
 $files = $local_file_path + "*.sql"
 $listfiles = Get-ChildItem $files
@@ -137,15 +137,6 @@ function ExecuteSQLFile($sqlfile,$go_or_not)
     Write-Host $sqlfile "execution done"
 }
 
-function ExecuteSQL
-{
-param(
-[String]
-$sqlscript
-)
-    Invoke-Sqlcmd -ServerInstance $server  -Database $dbname -Username $u -Password $p -InputFile $sqlscript -QueryTimeout 200000
-}
-
 ##########################################################################
 # Create tables from csv files.
 ##########################################################################
@@ -157,10 +148,8 @@ if ($ans -eq 'E' -or $ans -eq 'e')
 } 
 if ($ans -eq 'y' -or $ans -eq 'Y')
 {
-	$activities_url = Read-Host -prompt 'URL for activities file'
-	$users_url = Read-Host -prompt 'URL for users file'
-	#$activities_url = "http://azuremlsamples.azureml.net/templatedata/RetailChurn_ActivityInfoData.csv"
-	#$users_url = "http://azuremlsamples.azureml.net/templatedata/RetailChurn_UserInfoData.csv"
+	$activities_url = if(($result = Read-Host "URL for the activities file [Press enter to accept the default value") -eq ''){"http://azuremlsamples.azureml.net/templatedata/RetailChurn_ActivityInfoData.csv"}else{$result}
+	$users_url = if(($result = Read-Host "URL for the users file [Press enter to accept the default value") -eq ''){"http://azuremlsamples.azureml.net/templatedata/RetailChurn_UserInfoData.csv"}else{$result}
 
 	Invoke-WebRequest -Uri $activities_url -OutFile $activities_local_fname 	
 	Invoke-WebRequest -Uri $users_url -OutFile $users_local_fname 	
