@@ -15,11 +15,11 @@ REQUIREMENTS
 
 This template requires the following components:
 
- * Microsoft SQL Server R Services installed and configured. Visit [this link](https://msdn.microsoft.com/en-us/library/mt604885.aspx) to configure a server.
+ * Microsoft SQL Server R Services: Visit this [link](https://msdn.microsoft.com/en-us/library/mt604885.aspx) for steps to configure a server.
  
- * A user name and password or Windows Authnetication capability to access the server.
+ * User name and password (set up separately or via Windows account) to access the server.
  
- * Data on user information as well as their activities/interactions with the vendor. In this template, we provide sample datasets and instructions on how to load the data to the server.
+ * Data on the profile of users who interact with the business as well as their activities: In this template, we haved provided sample datasets and instructions on how to load these datasets to the server.
  
 WORKFLOW AUTOMATION
 -------------------
