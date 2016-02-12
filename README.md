@@ -1,7 +1,5 @@
-# Customer Churn Template on Microsoft SQL Server R Services
-
-INTRODUCTION
-------------
+CUSTOMER CHURN TEMPLATE on MICROSOFT SQL SERVER R SERVICES
+----------------------------------------------------------
 
 This template demonstrates how to build and deploy a customer churn model using a [Microsoft SQL Server R Services](https://msdn.microsoft.com/en-us/library/mt604845.aspx). For a full description of the template in Cortana Analytics Suite, visit the [project page](http://gallery.cortanaanalytics.com/Collection/Retail-Customer-Churn-Prediction-Template-1).
 
