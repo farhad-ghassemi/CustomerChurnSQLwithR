@@ -51,7 +51,7 @@ In this step, the user is first asked to enter the following information:
  * Churn period and threshold: In order to identify churners and non-churners, the templates needs these two parameters. The churn period specifies the number of days at the end of the activities period for which we observe the user 
 activities to identify churners. Within this period, those users who have activities more than the churn threshold are considered as non-churners and otherwise as churners. 
  
-Using the `bcp` utility, the script then retrieves the files from the URL address and uploads them into the server. It then envokes `CreateDBTables.sql` to create the database with the following tables: 
+Using the `bcp` utility, the script then retrieves the users and activities files from the URL address and uploads them into the server. It then envokes `CreateDBTables.sql` to create the database with the following tables: 
   
 |            Table         |          Purpose             |
 |------------------------------|-------------------------------|
@@ -66,7 +66,7 @@ Using the `bcp` utility, the script then retrieves the files from the URL addres
 STEP 2: FEATURE ENGINEERING
 ---------------------------
 
-In the second step, `CreateFeatures.sql` and `CreateTag.sql` are invoked to create features and tags. The output of these two scripts is stored in these tables: `Features` and `Tags`.
+In the second step, `CreateFeatures.sql` and `CreateTag.sql` are invoked to create features and tags. The output of these two scripts is stored in these tables: `Features` and `Tags`. For more details on feature engineering, visit this [link](http://gallery.cortanaanalytics.com/Collection/Retail-Customer-Churn-Prediction-Template-1).
 
 STEP 3 (a and b): MODEL TRAINING
 ------------------------------
