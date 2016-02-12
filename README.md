@@ -3,11 +3,7 @@
 INTRODUCTION
 ------------
 
-This template demonstrates how to build and deploy a customer churn model using a [Microsoft SQL Server R Services](https://msdn.microsoft.com/en-us/library/mt604845.aspx). 
-
- * For a full description of the template in Cortana Analytics Suite, visit the [project page](http://gallery.cortanaanalytics.com/Collection/Retail-Customer-Churn-Prediction-Template-1).
-
- * To check the source code, modify or track changes, please visit this [link](https://github.com/Azure/Azure-MachineLearning-DataScience-Private/tree/master/Misc/SQL_RRE_Templates/Churn).
+This template demonstrates how to build and deploy a customer churn model using a [Microsoft SQL Server R Services](https://msdn.microsoft.com/en-us/library/mt604845.aspx). For a full description of the template in Cortana Analytics Suite, visit the [project page](http://gallery.cortanaanalytics.com/Collection/Retail-Customer-Churn-Prediction-Template-1).
 
 
 REQUIREMENTS
@@ -21,10 +17,13 @@ This template requires the following components:
  
  * Data on the profile of users who interact with the business as well as their activities: In this template, we haved provided sample datasets and instructions on how to load these datasets to the server.
  
-WORKFLOW AUTOMATION
+ * Source files: They can be download via this [link](https://github.com/Azure/Azure-MachineLearning-DataScience-Private/tree/master/Misc/SQL_RRE_Templates/Churn).
+ 
+ 
+WORKFLOW
 -------------------
 
-The end-to-end workflow is automated with a Windows PowerShell script. The script can be invoked remotely from the PowerShell console by running the following command:
+The end-to-end workflow to set up the template can be managed via a Windows PowerShell script. The script can be invoked remotely from the PowerShell console by running the following command from the directory where :
 
 	MSR-SQL-Churn.ps1
 
