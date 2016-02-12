@@ -7,19 +7,19 @@ This template demonstrates how to build and deploy a customer churn model using 
 
  * For a full description of the template in Cortana Analytics Suite, visit the [project page](http://gallery.cortanaanalytics.com/Collection/Retail-Customer-Churn-Prediction-Template-1).
 
- * To check the source code, modify or track changes, please visit this [github link](https://github.com/Azure/Azure-MachineLearning-DataScience-Private/tree/master/Misc/SQL_RRE_Templates/Churn).
+ * To check the source code, modify or track changes, please visit this [link](https://github.com/Azure/Azure-MachineLearning-DataScience-Private/tree/master/Misc/SQL_RRE_Templates/Churn).
 
 
 REQUIREMENTS
 ------------
 
-To run the scripts, it requires the following:
+This template requires the following components:
 
  * Microsoft SQL Server R Services installed and configured. Visit [this link](https://msdn.microsoft.com/en-us/library/mt604885.aspx) to configure a server.
  
  * A user name and password or Windows Authnetication capability to access the server.
  
- * Data on user information as well as their activities/interactions with the vendor. In this template, we provide sample datasets and how to load them to the server.
+ * Data on user information as well as their activities/interactions with the vendor. In this template, we provide sample datasets and instructions on how to load the data to the server.
  
 WORKFLOW AUTOMATION
 -------------------
