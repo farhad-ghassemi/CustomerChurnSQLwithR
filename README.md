@@ -48,8 +48,8 @@ In this step, the user is first asked to enter the following information:
 
  * URL address for the users and activities files: If the user does not specify a URL, the files are downloaded from a default location.
 
- * Churn period and threshold: In order to identify churners and non-churners, the templates needs these two parameters. The churn period specifies the number of days at the end of the activities period which is observed 
-for identifying churners. Within this period, those users who have activities more than the churn threshold are considered as non-churners and otherwise as churners. 
+ * Churn period and threshold: In order to identify churners and non-churners, the templates needs these two parameters. The churn period specifies the number of days at the end of the activities period for which we observe the user 
+activities to identify churners. Within this period, those users who have activities more than the churn threshold are considered as non-churners and otherwise as churners. 
  
 Using the `bcp` utility, the script then retrieves the files from the URL address and uploads them into the server. It then envokes `CreateDBTables.sql` to create the database with the following tables: 
   
