@@ -1,7 +1,10 @@
 /* 
 	Description: This file creates the procedure to predict churn outcome based on the open source R model previously built.
+	Notes:       The following entities in this file are replaced with their values when this file is parsed by the PowerShell script:
+				 ChurnMSRTemplate
 	Author: farhad.ghassemi@microsoft.com
 */
+
 use [ChurnMSRTemplate]
 go
 

@@ -15,8 +15,10 @@ REQUIREMENTS
 
 To run the scripts, it requires the following:
 
- * Microsoft SQL Server R Services installed and configured. Visit [this link](https://msdn.microsoft.com/en-us/library/mt604885.aspx) to configure a server. 
+ * Microsoft SQL Server R Services installed and configured. Visit [this link](https://msdn.microsoft.com/en-us/library/mt604885.aspx) to configure a server.
+ 
  * A user name and password or Windows Authnetication capability to access the server.
+ 
  * Data on user information as well as their activities/interactions with the vendor. In this template, we provide sample datasets and how to load them to the server.
  
 WORKFLOW AUTOMATION
@@ -33,51 +35,55 @@ An experienced user may directly run, modifiy or intergrate the provided SQL scr
 STEP 1: DATA PREPARATION
 ------------------------
 
-The template requires two datasets as input: a dataset of the user profiles and a dataset of the user activities. As part of this repository, we have provided two sample datasets. The schema for these datasets can be found [here](http://gallery.cortanaanalytics.com/Experiment/Retail-Churn-Template-Step-1-of-4-tagging-data-1).
-Furthermore, the files can be downloaded from this [link](http://azuremlsamples.azureml.net/templatedata/RetailChurn_ActivityInfoData.csv) and this [link](http://azuremlsamples.azureml.net/templatedata/RetailChurn_UserInfoData.csv).
+The template requires two datasets as input: a dataset of the user profiles and a dataset of the user activities. As part of this repository, we have provided sample files for these datasets. 
+These files can be downloaded [here](http://azuremlsamples.azureml.net/templatedata/RetailChurn_ActivityInfoData.csv) and [here](http://azuremlsamples.azureml.net/templatedata/RetailChurn_UserInfoData.csv).
+The schema for the datasets are described [here](http://gallery.cortanaanalytics.com/Experiment/Retail-Churn-Template-Step-1-of-4-tagging-data-1).
 
-Once the PowerShell script is invoked, the user must first enter a server name (or its IP address) and a database name. If the user presses enter for the database name, a default name is used. Then, the user must enter the user name and password. 
-If the user does not provide a user name or password, a connection based on the Windows account information is established.     
+In this step, the user is first asked to enter the following information:
 
-The user then must enter 
-The template also allows the users to define the churn period and the threshold in the number of transactions to identify churners. 
+ * Server name (or its IP address).
+ 
+ * Database name: If the user does not provide a name and simply presses enter when answering this question, a default name is used. 
+ 
+ * User name and password: If the user does not provide a user name and password, the script assumes a Windows Authnetication connection must be established and employes the Windows account informtion to connect to the server.     
 
+ * URL address for the users and activities files: If the user does not specify a URL, the files are downloaded from a default location.
 
-### Steps to Set up and Run Customer Churn Template:
-#### Step 1: Downloading Files 
-All files related to this walkthrough (including the sample datasets) are stored in this git repository. To download these files on a local machine with access to the SQL server (or directly on the SQL server), click on **Download ZIP** or clone the repository by running `git clone https://github.com/farhad-ghassemi/CustomerChurnSQLwithR`.
-
-#### Step 2: Creating Database and Tables
-The user needs to upload the datasets (`Transactions.csv` and `Profiles.csv`) into a local directory on the SQL server. Once these files are uploaded to the SQL server, the user must run `CreateDBUploadTables.sql` from a SQL Server Management Studio (SSMS) with access to the server. 
-The first few lines of this script introduces user-defined variables (These lines are marked by comments in the file). The important variables to pay attention to include: 1) The name of the database, 2) The location of the files on the server and 3) The name of tables to be created. 
-The user can also define here the values of the churn period and churn threshold.
-
-If the user uses the default values, after running the scrip, a database called `Churn` is generated with the following tables:
+ * Churn period and threshold: In order to identify churners and non-churners, the templates needs these two parameters. The churn period specifies the number of days at the end of the activities period which is observed 
+for identifying churners. Within this period, those users who have activities more than the churn threshold are considered as non-churners and otherwise as churners. 
+ 
+Using the `bcp` utility, the script then retrieves the files from the URL address and uploads them into the server. It then envokes `CreateDBTables.sql` to create the database with the following tables: 
   
 |            Table         |          Purpose             |
 |------------------------------|-------------------------------|
-| `Transactions` | Customer trasnsactions   |
-| `Profiles`             | Customer profiles               |
-| `ChurnVars`           | Churn period and threshold parameters|
+| `Activities` | Customer activities   |
+| `Users`             | Customer profiles               |
+| `ChurnVars`           | Churn period and threshold|
 | `ChurnModelR`           | Churn model trained using open-source R|
 | `ChurnModelRx`           | Churn model trained using Microsoft R Server|
+| `ChurnPredictR`           | Prediction results based on open-source R model|
+| `ChurnPredictRx`           | Prediction results based on Microsoft R Server model|
 
-#### Step 3: Feature and Tags Generation, Model Training and Prediction (Open-Source R and Microsoft R Server)
-Once the database and tabels are created, the user can run `CustomerChurnTemplateR.sql` or `CustomerChurnTemplateRx.sql` to create features and tags from the `Profiles` and `Transactions` tables and to train a model and make predictions. `CustomerChurnTemplateR.sql` relies on
-the open-source R functions whereas `CustomerChurnTemplateRx.sql` employs the [Microsoft R Server (formerly known as Revolution R)](https://www.microsoft.com/en-us/server-cloud/products/r-server/) functions. Each of these scripts call the following procedures to accomplish their tasks:  
+STEP 2: FEATURE ENGINEERING
+---------------------------
 
-|            Procedure          |          Purpose             |
-|------------------------------|-------------------------------|
-| `CreateFeaturesTag.sql` | Generate features and tags    |
-| `TrainModelR.sql` or `TrainModelRx.sql`              | Train the model               |
-| `PredictChurnR.sql` or `PredictChurnRx.sql`          | Predict the customer behavior |
+In the second step, `CreateFeatures.sql` and `CreateTag.sql` are invoked to create features and tags. The output of these two scripts is stored in these tables: `Features` and `Tags`.
 
-### Output:
-The template generates a table with the following columns for a group of customers who are randomly selected and used as the test dataset:
+STEP 3 (a and b): MODEL TRAINING
+------------------------------
+
+In the third step, `TrainModelR.sql` or `TrainModelRx.sql` are invoked to train the churn models. `TrainModelR.sql` employs the open-source R functions whereas `TrainModelRx.sql` employs the Microsoft R Server functions. 
+The trained models are stored in `ChurnModelR` and `ChurnModelRx` tables.
+
+STEP 4 (a and b): PREDICTION
+----------------------------------
+
+In the fourth step, `PredictR.sql` or `PredictRx.sql` are invoked to make predictions based on the models trained in the previous steps. `PredictR.sql` employs the open-source R model whereas `PredictRx.sql` employs the Microsoft R Server model. 
+The results are stored in a table with the following columns:
 
 |            Column          |          Description            |
 |------------------------------|-------------------------------|
-| `UserId` | Customer Id    |
+| `UserId` | User Id    |
 | `Tag`              | True customer status (churner or non-churner)               |
 | `Score`          | Model score |
 | `Auc`          | Model auc on test dataset (identical for all columns) |

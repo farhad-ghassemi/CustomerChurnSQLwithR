@@ -18,7 +18,6 @@ $users_local_fname = $local_file_path + "Users.csv"
 $server = Read-Host -prompt 'Server name'
 $dbname = if(($result = Read-Host "Database name [Press enter to accept the default name of ChurnMSRTemplate]") -eq ''){"ChurnMSRTemplate"}else{$result}
 $SQLPacket = "use [" + $dbname + "]`n"
-$defaultdbname = "ChurnMSRTemplate"
 $files = $local_file_path + "*.sql"
 $listfiles = Get-ChildItem $files
 
@@ -70,7 +69,7 @@ function ExecuteSQLFile($sqlfile,$go_or_not)
                 {
                     $SQLPacket += "SET @db_name = '" + $dbname + "'`n"
                 }
-                Elseif($SQLString -match "create database db_name")
+                Elseif($SQLString -like "create database*")
                 {
                     $SQLPacket += "create database " + $dbname + "`n"
                 }
@@ -166,7 +165,7 @@ if ($ans -eq 'y' -or $ans -eq 'Y')
 	Invoke-WebRequest -Uri $users_url -OutFile $users_local_fname 	
 	
 	# create database and tables
-    $script = $local_file_path + "CreateDBUploadTables.sql"
+    $script = $local_file_path + "CreateDBTables.sql"
     ExecuteSQLFile $script 1
 
     # load activities table

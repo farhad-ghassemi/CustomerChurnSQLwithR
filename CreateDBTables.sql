@@ -1,14 +1,16 @@
 /* 
-	Description: This file creates the database and templates for the customer churn template.
-	             The user can modify the variables in the set statements if needed. 
+	Description: This file creates the database and tables for the customer churn template.
+    Notes:       The following entities in this file are replaced with their values when this file is parsed by the PowerShell script:
+				 ChurnMSRTemplate
+				 ChurnPeriodVal
+				 ChurnThresholdVal
 	Author: farhad.ghassemi@microsoft.com
 */
 
-/* Create database and tables */
-create database db_name
+create database ChurnMSRTemplate
 go
 
-use [db_name]
+use [ChurnMSRTemplate]
 create table Users
 (
        UserId varchar(50) primary key,
