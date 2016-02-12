@@ -23,7 +23,7 @@ This template requires the following components:
 WORKFLOW
 -------------------
 
-The end-to-end workflow to set up the template can be managed via a Windows PowerShell script. The script can be invoked remotely from the PowerShell console by running the following command from the directory where :
+The end-to-end workflow to set up the template can be managed via a Windows PowerShell script. The script can be invoked remotely from the PowerShell console by running the following command from the directory where the source files have been downloaded:
 
 	MSR-SQL-Churn.ps1
 
@@ -35,7 +35,7 @@ STEP 1: DATA PREPARATION
 ------------------------
 
 The template requires two datasets as input: a dataset of the user profiles and a dataset of the user activities. As part of this repository, we have provided sample files for these datasets. 
-These files can be downloaded [here](http://azuremlsamples.azureml.net/templatedata/RetailChurn_ActivityInfoData.csv) and [here](http://azuremlsamples.azureml.net/templatedata/RetailChurn_UserInfoData.csv).
+These files can be downloaded from [here](http://azuremlsamples.azureml.net/templatedata/RetailChurn_ActivityInfoData.csv) and [here](http://azuremlsamples.azureml.net/templatedata/RetailChurn_UserInfoData.csv).
 The schema for the datasets are described [here](http://gallery.cortanaanalytics.com/Experiment/Retail-Churn-Template-Step-1-of-4-tagging-data-1).
 
 In this step, the user is first asked to enter the following information:
