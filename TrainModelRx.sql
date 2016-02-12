@@ -1,7 +1,10 @@
 /* 
 	Description: This file creates the procedure to train a Microsoft R model for the customer churn template.
+	Notes:       The following entities in this file are replaced with their values when this file is parsed by the PowerShell script:
+				 ChurnMSRTemplate
 	Author: farhad.ghassemi@microsoft.com
 */
+
 use [ChurnMSRTemplate]
 go
 

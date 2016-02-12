@@ -1,7 +1,11 @@
 /* 
 	Description: This file creates the tag for the customer churn template.
+	Notes:       The following entities in this file are replaced with their values when this file is parsed by the PowerShell script:
+				 ChurnMSRTemplate
+
 	Author: farhad.ghassemi@microsoft.com
 */
+
 use [ChurnMSRTemplate]
 go
 
