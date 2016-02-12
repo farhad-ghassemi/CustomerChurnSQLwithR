@@ -85,4 +85,4 @@ The results are stored in a table with the following columns:
 | `UserId` | User Id    |
 | `Tag`              | True customer status (churner or non-churner)               |
 | `Score`          | Model score |
-| `Auc`          | Model auc on test dataset (identical for all columns) |
+| `Auc`          | Model AUC on test dataset (identical for all columns) |
