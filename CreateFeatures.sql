@@ -25,6 +25,7 @@ begin
 	-- Calculate previous transaction time of a customer
 	select UserId, TransactionId, LagTransactionTime = lag(TransactionTime) over (partition by UserId order by TransactionTime) into #LagTransactionTimes from Activities
 	
+	-- Calculate day difference between two subsequence transactions of a customer
 	select 	Activities.TransactionId, Activities.UserId,
 			TransactionInterval = isnull(datediff(day, LagTransactionTime,  TransactionTime),0)
 			into #LagIntervals
@@ -33,6 +34,13 @@ begin
 			on Activities.UserId = #LagTransactionTimes.UserId and Activities.TransactionId = #LagTransactionTimes.TransactionId
 
 	-- Feature engineering in pre churn period
+	/*
+	  count of purchased items and total amount of transactions per customer
+	  standard deviation of count of purchased items and total amount of transactions per customer
+	  average time between transactions 
+	  count of transactions
+	  count of locaiton, product category and items
+	*/
 	select A.UserId, count(A.TransactionId) as PrechurnProductsPurchased, 
 				   sum(A.Quantity) as TotalQuantity, 
 				   sum(A.Val) as TotalValue, 
@@ -51,6 +59,12 @@ begin
 				 A.TransactionTime<=dateAdd(day, -1*(select ChurnPeriod from ChurnVars), (select max(TransactionTime) from  Activities)) 
 			group by A.UserId
 
+	/*
+	  average quantity and value per transaction per customer
+	  average quantity and value per item per customer
+	  average quantity and value per location per customer
+	  average quantity and value per product category per customer 
+	*/
 	alter table Features
 	add TotalQuantityperUniqueTransactionId real,
 		TotalQuantityperUniqueItemId real,
@@ -72,7 +86,7 @@ begin
 			Features.TotalValueperUniqueProductCategory = TotalValue/(UniqueProductCategory+1)
 		from Features
 
-	-- Remove total item purchased and add profile variables
+	-- Remove total item purchased from the Features table and add customer profile variables to the table
 	alter table Features 
 	drop column PrechurnProductsPurchased
 
